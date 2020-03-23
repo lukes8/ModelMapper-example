@@ -1,5 +1,7 @@
 package com.basant.spring.model.mapper.api;
 
+import com.basant.spring.model.mapper.api.dto.StudentDTO;
+import com.basant.spring.model.mapper.api.entity.Student;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,6 +12,8 @@ import com.basant.spring.model.mapper.api.entity.Customer;
 import com.basant.spring.model.mapper.api.entity.Order;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class ModelmapperExampleApplication {
@@ -33,10 +37,24 @@ public class ModelmapperExampleApplication {
 		return dto;
 	}
 
+	public void mapEntity2DTO_2() throws JsonProcessingException {
+
+		ModelMapper modelMapper = new ModelMapper();
+		Student s = new Student();
+		s.setName("Lukas");
+		s.setAge(22);
+		s.setCity("Prag");
+		s.setDateOfBirth(LocalDate.now());
+		StudentDTO dto = modelMapper.map(s, StudentDTO.class);
+		System.out.println(dto);
+	}
+
 	public static void main(String[] args) throws JsonProcessingException {
 		SpringApplication.run(ModelmapperExampleApplication.class, args);
 
 		ModelmapperExampleApplication app = new ModelmapperExampleApplication();
 		System.out.println(app.mapEntity2DTO());
+
+		app.mapEntity2DTO_2();
 	}
 }
